@@ -18,13 +18,14 @@ import {
   MenuItem,
   Pagination,
   CircularProgress,
+  TextField,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 
-const ProductsPage: React.FC = () => {
+export const ProductsPage = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -35,13 +36,16 @@ const ProductsPage: React.FC = () => {
     loading,
   } = useSelector((state: RootState) => state.products);
 
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
   useEffect(() => {
-    dispatch(fetchProducts());
-    dispatch(fetchCategories());
-  }, [dispatch]);
+    if (products.length === 0) {
+      dispatch(fetchProducts());
+      dispatch(fetchCategories());
+    }
+  }, [dispatch, products.length]);
 
   const handleFilterChange = (newFilter: "all" | "liked") => {
     dispatch(setFilter(newFilter));
@@ -52,13 +56,16 @@ const ProductsPage: React.FC = () => {
     dispatch(setSelectedCategory(category));
     setCurrentPage(1);
   };
-  console.log("ProductsPage Продукты из Redux: ", products);
 
   const filteredProducts = products.filter(product => {
     if (selectedCategory && product.category !== selectedCategory) return false;
-
     if (filter === "liked" && !product.isLiked) return false;
-
+    if (
+      searchQuery &&
+      !product.title.toLowerCase().includes(searchQuery.toLowerCase())
+    ) {
+      return false;
+    }
     return true;
   });
 
@@ -123,6 +130,7 @@ const ProductsPage: React.FC = () => {
             ))}
           </Select>
         </div>
+
         <Button
           variant='contained'
           color='primary'
@@ -131,6 +139,15 @@ const ProductsPage: React.FC = () => {
         >
           Создать продукт
         </Button>
+        <TextField
+          placeholder='Поиск продуктов...'
+          autoComplete='off'
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+          className={styles.searchField}
+          variant='outlined'
+          fullWidth
+        />
       </div>
 
       <div className={styles.cardContainer}>

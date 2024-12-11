@@ -61,16 +61,13 @@ const CreateProductPage: React.FC = () => {
       isLiked: false,
     };
 
-    // Добавление продукта в Redux
     dispatch(addProduct(newProduct));
 
-    // Лог для отладки
     console.log("Добавленный продукт:", newProduct);
 
     dispatch(setSelectedCategory(null));
     dispatch(setFilter("all"));
 
-    // Перенаправление на страницу продуктов
     navigate("/products");
   };
 
@@ -91,6 +88,7 @@ const CreateProductPage: React.FC = () => {
           helperText={errors.title ? "Название обязательно" : ""}
           fullWidth
           margin='normal'
+          autoComplete='off'
         />
         <TextField
           label='Описание'
@@ -102,6 +100,7 @@ const CreateProductPage: React.FC = () => {
           multiline
           rows={4}
           margin='normal'
+          autoComplete='off'
         />
         <TextField
           label='Цена'
@@ -111,6 +110,7 @@ const CreateProductPage: React.FC = () => {
           helperText={errors.price ? "Введите корректную цену" : ""}
           fullWidth
           margin='normal'
+          autoComplete='off'
         />
         <Select
           value={category}
@@ -142,6 +142,7 @@ const CreateProductPage: React.FC = () => {
           onChange={e => setImage(e.target.value)}
           fullWidth
           margin='normal'
+          autoComplete='off'
         />
         <Button
           variant='contained'

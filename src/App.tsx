@@ -1,10 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./layouts/Layout";
-import HomePage from "@pages/HomePage/HomePage";
-import ProductsPage from "@pages/ProductsPage/ProductsPage";
-import ProductDetailsPage from "@pages/ProductDetailsPage/ProductDetailsPage";
-import CreateProductPage from "@pages/CreateProductPage/CreateProductPage";
+import {
+  HomePage,
+  ProductsPage,
+  CreateProductPage,
+  ProductDetailsPage,
+} from "@pages/index";
 
 const App: React.FC = () => {
   return (
