@@ -1,5 +1,9 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Routes,
+  Route,
+  BrowserRouter,
+} from "react-router-dom";
 import Layout from "./layouts/Layout";
 import {
   HomePage,
@@ -11,7 +15,7 @@ import {
 
 const App: React.FC = () => {
   return (
-    <Router>
+    <BrowserRouter basename='/alfa-test-spa'>
       <Routes>
         <Route
           path='/'
@@ -39,7 +43,7 @@ const App: React.FC = () => {
           />
         </Route>
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 };
 
