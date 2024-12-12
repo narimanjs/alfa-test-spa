@@ -43,13 +43,23 @@ const ProductDetailsPage: React.FC = () => {
           <p className={styles.category}>Категория: {product.category}</p>
         </div>
       </div>
-      <Button
-        variant='contained'
-        onClick={() => navigate("/products")}
-        className={styles.backButton}
-      >
-        Назад к списку
-      </Button>
+      <div className={styles.buttonContainer}>
+        <Button
+          variant='contained'
+          onClick={() => navigate("/products")}
+          className={styles.backButton}
+        >
+          Назад к списку
+        </Button>
+        <Button
+          variant='contained'
+          color='secondary'
+          onClick={() => navigate(`/products/${id}/edit`)}
+          className={styles.editButton}
+        >
+          Редактировать продукт
+        </Button>
+      </div>
     </div>
   );
 };

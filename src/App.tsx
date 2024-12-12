@@ -6,6 +6,7 @@ import {
   ProductsPage,
   CreateProductPage,
   ProductDetailsPage,
+  ProductEditPage,
 } from "@pages/index";
 
 const App: React.FC = () => {
@@ -27,6 +28,10 @@ const App: React.FC = () => {
           <Route
             path='products/:id'
             element={<ProductDetailsPage />}
+          />
+          <Route
+            path='products/:id/edit'
+            element={<ProductEditPage />}
           />
           <Route
             path='create-product'

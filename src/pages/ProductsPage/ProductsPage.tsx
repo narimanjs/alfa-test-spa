@@ -96,6 +96,14 @@ export const ProductsPage = () => {
 
   return (
     <div className={styles.container}>
+      <Button
+        variant='contained'
+        color='primary'
+        onClick={() => navigate("/create-product")}
+        className={styles.button}
+      >
+        Создать продукт
+      </Button>
       <div className={styles.top}>
         <div className={styles.filterButtons}>
           <Button
@@ -131,14 +139,6 @@ export const ProductsPage = () => {
           </Select>
         </div>
 
-        <Button
-          variant='contained'
-          color='primary'
-          onClick={() => navigate("/create-product")}
-          className={styles.button}
-        >
-          Создать продукт
-        </Button>
         <TextField
           placeholder='Поиск продуктов...'
           autoComplete='off'

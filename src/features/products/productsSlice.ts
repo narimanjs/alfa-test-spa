@@ -81,6 +81,12 @@ const productsSlice = createSlice({
     setSelectedCategory(state, action: PayloadAction<string | null>) {
       state.selectedCategory = action.payload;
     },
+    updateProduct(state, action: PayloadAction<Product>) {
+      const index = state.items.findIndex(p => p.id === action.payload.id);
+      if (index !== -1) {
+        state.items[index] = { ...state.items[index], ...action.payload };
+      }
+    },
   },
   extraReducers: builder => {
     builder
@@ -114,6 +120,7 @@ export const {
   deleteProduct,
   addProduct,
   setSelectedCategory,
+  updateProduct,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../app/store";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../app/store";
 import {
   addProduct,
   setFilter,
@@ -22,6 +22,7 @@ const categories = ["Электроника", "Одежда", "Книги", "А�
 const CreateProductPage: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
+  const products = useSelector((state: RootState) => state.products.items);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -37,7 +38,6 @@ const CreateProductPage: React.FC = () => {
   });
 
   const handleSubmit = () => {
-    // Валидация полей
     const newErrors = {
       title: !title.trim(),
       description: !description.trim(),
@@ -50,12 +50,11 @@ const CreateProductPage: React.FC = () => {
     const hasError = Object.values(newErrors).some(error => error);
     if (hasError) return;
 
-    // Создание нового продукта
     const newProduct = {
-      id: Date.now(), // Уникальный идентификатор
+      id: Date.now(),
       title,
       description,
-      image: image || "https://via.placeholder.com/300", // Запасное изображение
+      image: image || "https://via.placeholder.com/300",
       price: parseFloat(price),
       category,
       isLiked: false,
@@ -70,6 +69,9 @@ const CreateProductPage: React.FC = () => {
 
     navigate("/products");
   };
+  useEffect(() => {
+    console.log("Текущий список продуктов из Redux:", products);
+  }, [products]);
 
   return (
     <Box className={styles.container}>
